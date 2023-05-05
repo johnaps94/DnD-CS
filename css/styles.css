@@ -35,29 +35,3 @@ h1 {
 }
 
 
-
-
-.health-orb-container {
-    position: relative;
-    width: 200px;
-    height: 200px;
-}
-
-.health-orb {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/DnD\ CS/img/itsmars_orb_back1.png');
-    background-size: cover;
-    overflow: hidden;
-}
-
-.health-orb-fill {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 0;
-    background-image: url('path/to/your/health-orb-filled-image.png');
-    background-size: cover;
-}

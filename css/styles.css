@@ -13,25 +13,67 @@ h1 {
 
 
 /* ---------- */
-#char-img {
+#character-information {
     position: relative;
     margin-bottom: 20px;
 }
-
-#char-img img {
+#character-information img#character-image {
     width: 300px;
     height: 300px;
     background: rgb(142, 142, 142);
 }
 
-#char-health {
-    position: absolute;
-    bottom: -10px;
-    left: -20px;
-    width: 135px;
-    height: 135px;
-    border-radius: 100%;
-    background: red;
+#character-basic-info {
+    margin-top: 15px;
 }
 
+#health {
+    position: relative;
+    border-radius: 100%;
+    width: 255px;
+    height: 255px;
+}
+img#health-outer {
+    position: absolute;
+    width: 247px;
+}
+#health .health-inner {
+    position: relative;
+    top: 14px;
+    left: 14px;
+}
+#health .health-inner img {
+    position: absolute;
+    width: 220px; 
+    height: 220px;
+}
 
+#health-fill {
+    border-radius: 100%; 
+    background-color: rgb(255, 0, 0);
+    filter: brightness(.65) contrast(1.25);
+}
+.panning-container {
+    position: relative;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 220px; 
+    height: 220px; 
+}
+.panning-image, .panning-image-2 {
+    position: absolute;
+    transform: rotate(90deg);
+    top: 0;
+    width: 220px; 
+    height: 220px;
+    background: #fffb271f;
+    opacity: 0.42;
+}
+.panning-image {
+    filter: contrast(1.2);
+}
+.panning-image-2 {
+    top: unset;
+    left: 0;
+    transform: rotate(0deg);
+}

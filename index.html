@@ -8,19 +8,35 @@
 </head>
 <body>
     <h1>DnD Character Sheet</h1>
-    <div id="char-img">
-        <img src="">
-        <span id="char-name">John Smith</span>
-        <div id="char-health">Circle Diablo Style</div>
+    <div id="character-information">
+        <img src="" id="character-image">
+        <span id="name">John Smith</span>
+    </div>
+    <div id="health">
+        <img id ="health-outer" src="img\DarkOrbBorder.png" style="border-radius: 100%; opacity: 0.76; background-color: rgba(255, 0, 0, 0);">
+        <div class="health-inner">
+            <img src="img\itsmars_orb_highlight.png" style="border-radius: 100%;">
+            <img src="img\itsmars_orb_shadow.png" style="border-radius: 100%;">
+            <img id="health-fill" class="circle" src="img\itsmars_orb_fill_japs.png">
+            <img src="img\itsmars_orb_back2.png" style="border-radius: 100%; z-index: -1; opacity: 0.8;">
+            <div class="panning-container circle">
+                <img class="panning-image" src="img\itsmars_scroll_fill_japs.png" alt="Panning Image">
+                <img class="panning-image" src="img\itsmars_scroll_fill_japs.png" alt="Panning Image">
+                <img class="panning-image" src="img\itsmars_scroll_fill_japs.png" alt="Panning Image">
+                <img class="panning-image-2" src="img\itsmars_scroll_lip_japs.png" alt="Panning Image">
+                <img class="panning-image-2" src="img\itsmars_scroll_lip_japs.png" alt="Panning Image">
+                <img class="panning-image-2" src="img\itsmars_scroll_lip_japs.png" alt="Panning Image">
+            </div>
+        </div>
     </div>
     <div id="damage-body-canvas">
 
     </div>
-    <div id="char-basic-info">
-        <span id="char-class">Time Lord</span>
-        <span id="char-race">Gallifreian</span>
-        <span id="char-background">Far Traveler</span>
-        <span id="char-alignment">Chaotic Good</span>
+    <div id="character-basic-info">
+        <span id="class">Time Lord</span>
+        <span id="race">Gallifreian</span>
+        <span id="background">Far Traveler</span>
+        <span id="alignment">Chaotic Good</span>
     </div>
 
     <script src="js/main.js"></script>

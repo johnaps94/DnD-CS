@@ -41,6 +41,10 @@ img#health-outer {
     position: relative;
     top: 14px;
     left: 14px;
+    
+    width: 220px; 
+    height: 220px;
+    border-radius: 100%;
 }
 #health .health-inner img {
     position: absolute;
@@ -48,15 +52,17 @@ img#health-outer {
     height: 220px;
 }
 
+
 #health-fill {
-    border-radius: 100%; 
-    background-color: rgb(255, 0, 0);
-    filter: brightness(.65) contrast(1.25);
+    position: absolute;
+    /*make health fil come on top */
+    z-index: 100;
 }
 .panning-container {
     position: relative;
     border-radius: 100%;
     overflow: hidden;
+    z-index: 100;
     width: 220px; 
     height: 220px; 
 }
@@ -66,11 +72,11 @@ img#health-outer {
     top: 0;
     width: 220px; 
     height: 220px;
-    background: #fffb271f;
-    opacity: 0.42;
+    /* background: #fd9a3e4d; */
+    opacity: 0.65;
 }
 .panning-image {
-    filter: contrast(1.2);
+    filter: contrast(1.25);
 }
 .panning-image-2 {
     top: unset;

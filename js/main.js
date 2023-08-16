@@ -7,73 +7,76 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 function animatePanningImages(parentId, direction) {
     const parentElement = document.getElementById(parentId);
-
-    // Horizontal Images Set 1
-    const images = parentElement.querySelectorAll('.panning-image');
-    let speed = 2; // Adjust this value to change the speed
-
-    // Initialize positions for horizontal images set 1
-    images.forEach((img, index) => {
-        img.style[direction] = (img.width * index) + "px";
-    });
-
-    // Horizontal Images Set 2
-    const secondSetImages = parentElement.querySelectorAll('.panning-image-2');
-    let secondSetSpeed = 1; // Adjust this value to change the speed
-
-    // Initialize positions for Horizontal Images Set 2
-    secondSetImages.forEach((img, index) => {
-        img.style[direction] = (img.width * index) + "px";
-    });
-     
-    let framesToSkip = 3; // Adjust to skip more or fewer frames
-    let currentFrame = 0;
-
-    function animateAll() {
-        if (currentFrame % framesToSkip === 0) {
-            // Animate Horizontal Images
-            for (let img of images) {
-                img.style[direction] = (parseInt(img.style[direction] || 0) - speed) + "px";
-                if (parseInt(img.style[direction]) <= -img.width) {
-                    img.style[direction] = img.width * (images.length - 1) + "px";
-                }
-            }
-    
-            // Animate Horizontal Images Set 2
-            for (let img of secondSetImages) {
-                img.style[direction] = (parseInt(img.style[direction] || 0) - secondSetSpeed) + "px";
-                if (parseInt(img.style[direction]) <= -img.height) {
-                    img.style[direction] = img.height * (secondSetImages.length - 1) + "px";
-                }
-            }
-        }
-        currentFrame++;
-        
-        requestAnimationFrame(animateAll);
+    if (parentElement.classList.contains('deactivate')) {
+        return;
     }
+    else {
+        // Horizontal Images Set 1
+        const images = parentElement.querySelectorAll('.panning-image');
+        let speed = 2; // Adjust this value to change the speed
 
-    // Event listeners to change speed on hover, focus, and active states
-    parentElement.addEventListener('mouseenter', () => framesToSkip = 1);
-    parentElement.addEventListener('mouseleave', () => framesToSkip = 3);
-    parentElement.addEventListener('focusin', () => framesToSkip = 1);
-    parentElement.addEventListener('focusout', () => framesToSkip = 3);
-    parentElement.addEventListener('mousedown', () => {
-        framesToSkip = 0;
-        if (parentId == 'mana') {
-            if (parentElement.classList.contains('deactivate')) {
-                parentElement.classList.remove('deactivate');
-            } else {
-                parentElement.classList.add('deactivate');
+        // Initialize positions for horizontal images set 1
+        images.forEach((img, index) => {
+            img.style[direction] = (img.width * index) + "px";
+        });
+
+        // Horizontal Images Set 2
+        const secondSetImages = parentElement.querySelectorAll('.panning-image-2');
+        let secondSetSpeed = 1; // Adjust this value to change the speed
+
+        // Initialize positions for Horizontal Images Set 2
+        secondSetImages.forEach((img, index) => {
+            img.style[direction] = (img.width * index) + "px";
+        });
+        
+        let framesToSkip = 3; // Adjust to skip more or fewer frames
+        let currentFrame = 0;
+        
+        function animateAll() {
+            if (currentFrame % framesToSkip === 0) {
+                // Animate Horizontal Images
+                for (let img of images) {
+                    img.style[direction] = (parseInt(img.style[direction] || 0) - speed) + "px";
+                    if (parseInt(img.style[direction]) <= -img.width) {
+                        img.style[direction] = img.width * (images.length - 1) + "px";
+                    }
+                }
+        
+                // Animate Horizontal Images Set 2
+                for (let img of secondSetImages) {
+                    img.style[direction] = (parseInt(img.style[direction] || 0) - secondSetSpeed) + "px";
+                    if (parseInt(img.style[direction]) <= -img.height) {
+                        img.style[direction] = img.height * (secondSetImages.length - 1) + "px";
+                    }
+                }
             }
+            currentFrame++;
+            
+            requestAnimationFrame(animateAll);
         }
 
-    });
-    parentElement.addEventListener('mouseup', () => framesToSkip = 3);
+        // Event listeners to change speed on hover, focus, and active states
+        parentElement.addEventListener('mouseenter', () => framesToSkip = 1);
+        parentElement.addEventListener('mouseleave', () => framesToSkip = 3);
+        parentElement.addEventListener('focusin', () => framesToSkip = 1);
+        parentElement.addEventListener('focusout', () => framesToSkip = 3);
+        parentElement.addEventListener('mousedown', () => {
+            if (parentId == 'mana') {
+                if (parentElement.classList.contains('deactivate')) {
+                    parentElement.classList.remove('deactivate');
+                } else {
+                    parentElement.classList.add('deactivate');
+                }
+            }
+            framesToSkip = 0;
+        });
+        parentElement.addEventListener('mouseup', () => framesToSkip = 3);
 
-    animateAll();
+        animateAll();
+    }
 }
-animatePanningImages('health', 'right');
-animatePanningImages('mana', 'left');
+animatePanningImages('health', 'right', true);
+animatePanningImages('mana', 'left', true);
 
 /* 
  *
@@ -129,7 +132,7 @@ animatePanningImages('mana', 'left');
             return 15 * (99 - clipStart) / 49;
         }
     }
-    adjustClipBasedOnDamage(20); //test call, delete after u create damage function
+    adjustClipBasedOnDamage(60); //test call, delete after u create damage function
 /* 
  *
  *   END OF - ADJUST HEALTH FILL CLIPPING

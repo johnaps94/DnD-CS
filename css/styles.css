@@ -27,51 +27,49 @@ h1 {
     margin-top: 15px;
 }
 
-#health {
+.orb {
     position: relative;
     border-radius: 100%;
     width: 255px;
     height: 255px;
 }
-img#health-outer {
+img.orb-outer {
     position: absolute;
     width: 247px;
 }
-#health .health-inner {
+.orb .orb-inner {
     position: relative;
     top: 14px;
     left: 14px;
-    
     width: 220px; 
     height: 220px;
     border-radius: 100%;
 }
-#health .health-inner img {
+.orb .orb-inner img {
     position: absolute;
     width: 220px; 
     height: 220px;
 }
 
-
-#health-fill {
+.orb-fill {
     position: absolute;
     background-color: red;
     filter: brightness(2);
 }
-#health .health-inner::after {
-    content: '';
-    width: calc(100% - 6px);
-    top: -121px;
-    z-index: 99;
-    border: 3px solid rgba(0, 0, 0, 0.466);
+.orb-fill-top {
+    width: var(--adjusted-width);
+    top: var(--adjusted-top);
+    z-index: 111;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.589);
     position: relative;
     display: block;
-    box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.445);
+    box-shadow: inset 0px 0px 255px 0px rgba(0, 0, 0, 0.445);
     filter: drop-shadow(0px -2px 5px rgba(255, 255, 255, 0.096));
-    height: 7px;
-    background-color: rgb(97, 22, 3);
-    border-radius: 100% 100% 0% 0%;
+    height: 15px;
+    background-color: rgb(112, 63, 51);
+    border-radius: 100%;
 }
+
 .panning-container {
     position: relative;
     border-radius: 100%;
@@ -94,4 +92,56 @@ img#health-outer {
 }
 .panning-image-2 {
     transform: rotate(180deg);
+}
+
+#mana, #mana .orb-inner, #mana .orb-inner img , #mana .panning-image, #mana .panning-image-2, #mana .panning-container {
+    width: 56px!important;
+    height: 56px!important;
+}
+#mana .orb-outer {
+    width: 63px!important;
+    height: 63px!important;
+    left: 10px;
+    top: 10px;
+}
+#mana .orb-inner-shadow {
+    width: 58px;
+    margin-left: -1px;
+    margin-top: -1px;
+    height: 58px;
+    box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.555);
+    z-index: 9999;
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+}
+#mana .orb-fill {
+    background-color: rgb(66, 79, 255);
+    filter: brightness(2);
+}
+#mana .panning-image, #mana .panning-image-2 {
+    background: hsla(263, 77%, 27%, 0.233);
+    filter: brightness(3);
+    transform: rotate(270deg);
+}
+
+#mana:hover .panning-image, #mana:active .panning-image, #mana:focus .panning-image, #mana:hover .panning-image-2, #mana:active .panning-image-2, #mana:focus .panning-image-2 {
+    background: hsla(271, 84%, 20%, 0.212);
+    filter: brightness(2);
+}
+#mana:hover .orb-inner-shadow, #mana:active .orb-inner-shadow, #mana:focus .orb-inner-shadow {
+    box-shadow: inset 0px 0px 5px 2px rgb(0, 0, 0);
+}
+#mana:hover .orb-fill, #mana:active .orb-fill, #mana:focus .orb-fill {
+    background-color: rgba(96, 105, 231, 0.877);
+    filter: brightness(3);
+}
+
+#mana.deactivate .panning-image, #mana.deactivate .panning-image-2, #mana.deactivate .orb-fill {
+    background-color: rgba(68, 68, 68, 0);
+    background: rgba(26, 26, 26, 0);
+    opacity: 0;
+}
+#mana.deactivate .orb-inner-shadow {
+    box-shadow: inset 0px 0px 45px 8px rgb(0, 0, 0);
 }

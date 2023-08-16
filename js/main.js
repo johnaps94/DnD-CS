@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function() {
  */
     // Horizontal Images
     const images = document.querySelectorAll('.panning-image');
-    let speed = 1; // Adjust this value to change the speed
+    let speed = 2; // Adjust this value to change the speed
 
     // Initialize positions for horizontal images
     images.forEach((img, index) => {
-        img.style.left = (img.width * index) + "px";
+        img.style.right = (img.width * index) + "px";
     });
 
     // Vertical Images
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize positions for vertical images
     verticalImages.forEach((img, index) => {
-        img.style.top = (img.height * index) + "px";
+        img.style.right = (img.width * index) + "px";
     });
 
     let framesToSkip = 3; // Adjust to skip more or fewer frames
@@ -30,17 +30,17 @@ document.addEventListener("DOMContentLoaded", function() {
         if (currentFrame % framesToSkip === 0) {
             // Animate Horizontal Images
             for (let img of images) {
-                img.style.left = (parseInt(img.style.left || 0) - speed) + "px";
-                if (parseInt(img.style.left) <= -img.width) {
-                    img.style.left = img.width * (images.length - 1) + "px";
+                img.style.right = (parseInt(img.style.right || 0) - speed) + "px";
+                if (parseInt(img.style.right) <= -img.width) {
+                    img.style.right = img.width * (images.length - 1) + "px";
                 }
             }
     
             // Animate Vertical Images
             for (let img of verticalImages) {
-                img.style.top = (parseInt(img.style.top || 0) - verticalSpeed) + "px";
-                if (parseInt(img.style.top) <= -img.height) {
-                    img.style.top = img.height * (verticalImages.length - 1) + "px";
+                img.style.right = (parseInt(img.style.right || 0) - verticalSpeed) + "px";
+                if (parseInt(img.style.right) <= -img.height) {
+                    img.style.right = img.height * (verticalImages.length - 1) + "px";
                 }
             }
         }
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const circles = document.querySelectorAll('.circle');
     
     circles.forEach(circle => {
-        /* circle.style.clipPath = 'polygon(0 50%, 100% 50%, 100% 100%, 0 100%)'; */
+        circle.style.clipPath = 'polygon(0 50%, 100% 50%, 100% 100%, 0 100%)';
     });
 
 });

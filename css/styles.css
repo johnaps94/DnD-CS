@@ -37,6 +37,17 @@ img.orb-outer {
     position: absolute;
     width: 247px;
 }
+.orb-inner-shadow {
+    width: 222px;
+    height: 222px;
+    margin-top: -1px;
+    margin-left: -1px;
+    box-shadow: inset 0px 0px 20px 2px rgb(0, 0, 0);
+    z-index: 999;
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+}
 .orb .orb-inner {
     position: relative;
     top: 14px;
@@ -60,14 +71,24 @@ img.orb-outer {
     width: var(--adjusted-width);
     top: var(--adjusted-top);
     z-index: 111;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.589);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
     position: relative;
     display: block;
     box-shadow: inset 0px 0px 255px 0px rgba(0, 0, 0, 0.445);
-    filter: drop-shadow(0px -2px 5px rgba(255, 255, 255, 0.096));
+    filter: drop-shadow(0px -2px 5px rgba(255, 255, 255, 0.103));
     height: 15px;
     background-color: rgb(112, 63, 51);
     border-radius: 100%;
+    border-top: 1px solid rgb(63, 36, 29);
+}
+.orb-fill-top-inner{
+    filter: none;
+    width: 94%;
+    margin: auto;
+    height: 100%;
+    border-radius: 100%;
+    box-shadow: 0px 0px 5px 5px rgba(68, 16, 3, 0.644);
+    background-color: rgba(20, 7, 7, 0);
 }
 
 .panning-container {
@@ -84,8 +105,9 @@ img.orb-outer {
     top: 0;
     width: 220px; 
     height: 220px;
-    background: hsla(61, 95%, 74%, 0.11);
-    opacity: 0.8;
+    /* background: hsla(61, 95%, 74%, 0.11); */
+    background: hsla(61, 95%, 74%, 0.13);
+    opacity: 0.72;
 }
 .panning-image {
     filter: contrast(1.25);
@@ -106,14 +128,8 @@ img.orb-outer {
 }
 #mana .orb-inner-shadow {
     width: 58px;
-    margin-left: -1px;
-    margin-top: -1px;
     height: 58px;
     box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.555);
-    z-index: 9999;
-    display: block;
-    border-radius: 100%;
-    position: absolute;
 }
 #mana .orb-fill {
     background-color: rgb(66, 79, 255);

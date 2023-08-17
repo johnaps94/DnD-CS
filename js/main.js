@@ -132,7 +132,7 @@ animatePanningImages('mana', 'left', true);
             return 15 * (99 - clipStart) / 49;
         }
     }
-    adjustClipBasedOnDamage(60); //test call, delete after u create damage function
+    adjustClipBasedOnDamage(50); //test call, delete after u create damage function
 /* 
  *
  *   END OF - ADJUST HEALTH FILL CLIPPING

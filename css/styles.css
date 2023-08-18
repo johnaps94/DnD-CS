@@ -308,7 +308,7 @@ img.orb-outer {
 /*FONTS LOADING*/
 @font-face {
     font-family: 'exocet';
-    src: url('fonts/ExocetBlizzardMixedCaps-Medium.woff2') format('woff2');
+    src: url('fonts/ExocetImmortal-Light.otf') format('woff2');
     font-weight: 500;
     font-style: normal;
 }

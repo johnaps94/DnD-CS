@@ -302,3 +302,19 @@ img.orb-outer {
     transform: rotate(180deg);
 }
 
+
+
+
+/*FONTS LOADING*/
+@font-face {
+    font-family: 'exocet';
+    src: url('fonts/ExocetBlizzardMixedCaps-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+
+body, h1, h2, h3, h4, p, span {
+    font-family: 'exocet', sans-serif;
+}

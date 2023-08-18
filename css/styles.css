@@ -27,6 +27,8 @@ h1 {
     margin-top: 15px;
 }
 
+
+/*HEALTH AND MANA ORB*/
 .orb {
     position: relative;
     border-radius: 100%;
@@ -163,6 +165,7 @@ img.orb-outer {
 }
 
 
+/* SPELLBOOK SIDEPANEL */
 #spellbook-button {
     max-width: 65px;
     position: relative;
@@ -182,11 +185,11 @@ img.orb-outer {
 
 #spellbook-sidepanel {
     height: 90vh;
-    /* width: 25vw;
-    background: rgba(255, 255, 255, 0.473); */
-    width: 100vw;
+    width: 25vw;
+    background: rgba(255, 255, 255, 0.473);
+    /* width: 100vw;
     background: rgb(58, 58, 58);
-    z-index: 10000;
+    z-index: 10000; */
     position: fixed;
     right: 0px;
     top: 0px;
@@ -194,56 +197,108 @@ img.orb-outer {
     border-top-left-radius: 27px;
     border-bottom-left-radius: 27px;
     border-radius: 35px;
-    padding: 0px 8px;
+    padding: 0px 10px;
+    overflow: visible;
 }
 #spellbook-sidepanel h1 {
     font-size: 22px;
     color: rgba(255, 255, 255, 0.486);
 }
-.description {
+
+.spell .description {
     display: none;
+    background: white;
+    font-size: 13px;
+    border-radius: 3px;
+    padding: 7px 10px;
+    box-sizing: border-box;
+    position: absolute;
+    width: 22vw;
+    left: -22vw;
+    transform: translateY(-34px); /* maybe needs to be calculated with js */
+    margin-left: -11px;    
+    color: black;
 }
-.spell {
-    padding: 1px 25px;
+.spell .description::before {
+    content: "";
+    position: absolute;
+    bottom: 10px; 
+    right: -12px; 
+    transform: rotate(-90deg);
+    border-width: 15px 5px 0;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
 }
-.spell .title, .spell-lvl-heading {
-    padding: 15px 20px;
+.spell .title, .spell-lvl-heading, .spell input {
+    padding: 2px 20px;
+    margin: 1px 0px;
     line-height: 1.875;
     background: #1f1f1f85;
     width: 100%;
     box-sizing: border-box;
-    display: block;
-    border-radius: 5px;
+    border-radius: 3px;
     color: rgb(241, 241, 241);
+    font-size: 16px;
 }
-.spell .title:hover, .spell-lvl-slots h2:hover {
-    background: #1f1f1f34;
+.spell .title {
+    display: block;
+    position: absolute;
+    opacity: 0;
+    width: calc(100% - 20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: -1;
 }
 .spell-lvl-heading {
     display: flex;
     flex-direction: row;
-    margin: 1px 25px;
-    line-height: 1.45;
-    padding: 1px 20px 0px;
-    width: calc(100% - 50px);
+    padding: 9px 20px 7px;
+    width: 100%;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     color: rgba(255, 255, 255, 0.897);
     position: relative;
 }
 .spell-lvl-heading h2 {
-    font-size: 19px;
-    letter-spacing: 0.25px;
-}
-.spell-lvl-slots .toggle {
-    position: absolute;
     font-size: 18px;
-    height: 20px;
-    width: 20px;
-    margin: a;
-    right: 20px;
-    line-height: 0.95;
-    align-self: center;
-    border: 1px solid white;
-    border-radius: 100%;
+    letter-spacing: 0.25px;
+    margin: 0px;
 }
+.spell .title:hover, .spell-lvl-heading:hover {
+    background: #1f1f1f34;
+}
+
+.spell-lvl-slots .toggle-btn {
+    position: absolute;
+    display: flex;
+    margin-top: -2px;
+    right: 20px;
+    align-self: center;
+}
+.spell-lvl-slots .toggle-btn svg {
+    fill: #c4c7c5;
+    border-radius: 100%;
+    background-color: #282a2c;
+    transition: transform 0.3s;
+}
+
+/* active state of sidepanel elements */
+.spell-lvl-slots.active .spell .title {
+    animation: fadeInLate 0.5s forwards;
+    transform: translateY(0)!important;
+    position: relative;
+    top: unset;
+    z-index: 10;
+    width: 100%;
+}
+@keyframes fadeInLate {
+    0%, 50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.spell-lvl-slots.active .toggle-btn svg {
+    transform: rotate(180deg);
+}
+

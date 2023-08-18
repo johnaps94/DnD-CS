@@ -205,5 +205,43 @@ document.addEventListener('click', function(e) {
     }
 });
 
-  
+
+
+
+
+
+function toggleArrow() {
+    const toggles = document.getElementsByClassName('toggle-btn');
+    Array.from(toggles).forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            this.closest('.spell-lvl-slots').classList.toggle('active');
+        });
+    });
+}
+toggleArrow();
+
+
+
+function transitionDelayOnSpells() {
+    // Grab all the .title elements inside .spell
+    let spells = document.querySelectorAll('.spell-lvl-slots .spell');
+
+    // Set a base delay
+    let delay = 0; 
+
+    spells.forEach(spell => {
+        // Fetch the title inside the current spell
+        let title = spell.querySelector('.title');
+
+        // Dynamically set translateY value based on the title's height
+        title.style.transform = `translateY(-${title.offsetHeight}px)`;
+
+        // Increment delay for the transition effect
+        title.style.transitionDelay = `${delay}s`;
+
+        delay += 0.2; // increment delay by 0.2s for each title
+    });
+}
+transitionDelayOnSpells();
+
 });

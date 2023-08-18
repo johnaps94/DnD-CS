@@ -140,6 +140,13 @@ animatePanningImages('mana', 'left', true);
  */
 
 
+/* 
+ *
+ *   SPELLBOOK FUNCTIONS
+ *
+ */
+
+//spell title element -> swap to input when clicked
 document.querySelectorAll('.title').forEach(title => {
     title.addEventListener('click', function() {
         const inputValue = this.innerText;

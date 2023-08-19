@@ -210,15 +210,15 @@ document.addEventListener('click', function(e) {
 
 
 
-function toggleArrow() {
-    const toggles = document.getElementsByClassName('toggle-btn');
-    Array.from(toggles).forEach(toggle => {
+function toggleActiveClass(toggleElement, activeElement) {
+    const toggles = document.querySelectorAll(toggleElement);
+    toggles.forEach(toggle => {
         toggle.addEventListener('click', function() {
-            this.closest('.spell-lvl-slots').classList.toggle('active');
+            this.closest(activeElement).classList.toggle('active');
         });
     });
 }
-toggleArrow();
+toggleActiveClass('.spell-lvl-heading', '.spell-lvl-slots');
 
 
 
@@ -236,10 +236,13 @@ function transitionDelayOnSpells() {
         // Dynamically set translateY value based on the title's height
         title.style.transform = `translateY(-${title.offsetHeight}px)`;
 
-        // Increment delay for the transition effect
-        title.style.transitionDelay = `${delay}s`;
+        /* // Increment delay for the transition effect
+        title.style.transitionDelay = `${delay}s`; */
 
-        delay += 0.2; // increment delay by 0.2s for each title
+        // Set the animation delay
+        title.style.animationDelay = `${delay}s`;
+
+        delay += 0.065; // increment delay by 0.2s for each title
     });
 }
 transitionDelayOnSpells();

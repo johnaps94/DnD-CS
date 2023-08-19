@@ -49,9 +49,6 @@ h1 {
     height: 90vh;
     width: 25vw;
     background: rgba(255, 255, 255, 0.473);
-    /* width: 100vw;
-    background: rgb(58, 58, 58);
-    z-index: 10000; */
     position: fixed;
     right: 0px;
     top: 0px;
@@ -107,7 +104,7 @@ h1 {
     position: absolute;
     opacity: 0;
     width: calc(100% - 20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    /* transition: opacity 0.5s ease, transform 0.5s ease; */
     z-index: -1;
 }
 .spell-lvl-heading {
@@ -167,7 +164,12 @@ h1 {
 .spell-lvl-slots.active .toggle-btn svg {
     transform: rotate(180deg);
 }
-
+.spell-lvl-slots.active .spell .title.no-animation {
+    /* Reset or override any animations/transitions here */
+    animation: none !important;
+    opacity: 1;
+    transition: none !important;
+}
 
 
 

@@ -16,7 +16,13 @@ document.querySelectorAll('.title').forEach(title => {
         const revertToTitle = () => {
             title.innerText = inputElem.value;
             if(inputElem.parentNode) {  // Check to ensure that inputElem is still in the DOM
-                inputElem.parentNode.replaceChild(title, inputElem);
+                title.classList.add('no-animation');  // Add the no-animation class
+                inputElem.parentNode.replaceChild(title, inputElem);  
+
+                // Remove the no-animation class after a brief timeout
+                setTimeout(() => {
+                    title.classList.remove('no-animation');
+                }, 600);  // 10ms should be enough, but adjust if necessary
             }
         }
 
@@ -59,7 +65,8 @@ document.querySelectorAll('.title').forEach(title => {
 // Event listener to handle hiding the description when clicking elsewhere
 document.addEventListener('click', function(e) {
     // If the clicked element is not a title and not a description, hide all descriptions
-    if (!e.target.classList.contains('title') && !e.target.classList.contains('description')) {
+    /* if (!e.target.classList.contains('title') && !e.target.classList.contains('description')) { */
+    if (!e.target.classList.contains('description')) {
         document.querySelectorAll('.description').forEach(desc => desc.style.display = 'none');
     }
 });
@@ -68,7 +75,7 @@ document.addEventListener('click', function(e) {
 
 
 
-
+//function that will stay in main.js and be called in spellbook.js
 function toggleActiveClass(toggleElement, activeElement) {
     const toggles = document.querySelectorAll(toggleElement);
     toggles.forEach(toggle => {

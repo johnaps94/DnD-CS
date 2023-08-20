@@ -54,11 +54,11 @@ img.orb-outer {
 }
 .orb-fill-top-inner{
     filter: none;
-    width: 94%;
+    width: 97%;
     margin: auto;
     height: 100%;
     border-radius: 100%;
-    box-shadow: 0px 0px 4px 4px rgba(58, 14, 3, 0.644);
+    box-shadow: 0px 2px 5px 5px rgba(58, 14, 3, 0.644);
     background-color: rgba(20, 7, 7, 0);
 }
 

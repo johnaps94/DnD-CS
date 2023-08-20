@@ -67,9 +67,8 @@ h1 {
 .spell .description {
     display: none;
     background: white;
-    font-size: 13px;
+    /* font-size: 13px; */
     border-radius: 3px;
-    padding: 7px 10px;
     box-sizing: border-box;
     position: absolute;
     width: 22vw;
@@ -78,17 +77,31 @@ h1 {
     margin-left: -11px;    
     color: black;
 }
+.spell .description textarea, .spell .description span {
+    padding: 7px 15px;
+    font-size: 13px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    resize: none;
+    border: 0px;
+    margin: 0px;
+    width: 100%;
+    display: block;
+    outline: none;
+    overflow-y: hidden;
+    line-height: 1.6;
+} 
 .spell .description::before {
     content: "";
     position: absolute;
-    bottom: 10px; 
+    top: 10px; 
     right: -12px; 
     transform: rotate(-90deg);
     border-width: 15px 5px 0;
     border-style: solid;
     border-color: #ffffff transparent transparent transparent;
 }
-.spell .title, .spell-lvl-heading, .spell input {
+.spell .title, .spell-lvl-heading {
     padding: 2px 20px;
     margin: 1px 0px;
     line-height: 1.875;
@@ -104,7 +117,6 @@ h1 {
     position: absolute;
     opacity: 0;
     width: calc(100% - 20px);
-    /* transition: opacity 0.5s ease, transform 0.5s ease; */
     z-index: -1;
 }
 .spell-lvl-heading {
@@ -144,7 +156,6 @@ h1 {
 /* active state of sidepanel elements */
 .spell-lvl-slots.active .spell .title {
     animation: fadeInLate 0.5s forwards;
-    transform: translateY(0)!important;
     position: relative;
     top: unset;
     z-index: 10;
@@ -159,6 +170,7 @@ h1 {
     }
     100% {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 .spell-lvl-slots.active .toggle-btn svg {
@@ -173,6 +185,11 @@ h1 {
 
 
 
+
+
+
+
+
 /*FONTS LOADING*/
 @font-face {
     font-family: 'exocet';
@@ -181,8 +198,6 @@ h1 {
     font-style: normal;
 }
 
-
-
-body, h1, h2, h3, h4, p, span, input {
+body, h1, h2, h3, h4, p, span, input, textarea {
     font-family: 'exocet', sans-serif;
 }

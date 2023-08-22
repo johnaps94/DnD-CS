@@ -92,7 +92,7 @@ function transitionDelayOnSpells(delayIncrement) {
 }
 transitionDelayOnSpells(0.065);
 
-function SingleAndDoubleClick(element, helperFunc) {
+function SingleAndDoubleClick(element, helperFunc, htmltypeinput, cssClass) {
     let allElementsAlike = document.querySelectorAll(element);
     let clickTimeout = null;  // This will store the setTimeout reference
 
@@ -113,9 +113,9 @@ function SingleAndDoubleClick(element, helperFunc) {
                 
                 // Logic for edit functionality
                 const inputValue = this.innerText;
-                const inputElem = document.createElement('textarea');
+                const inputElem = document.createElement(htmltypeinput);
 
-                /* inputElem.classList.add(cssClass); */
+                inputElem.classList.add(cssClass);
                 inputElem.value = inputValue;
 
                 // Function to revert input back to the title
@@ -126,7 +126,7 @@ function SingleAndDoubleClick(element, helperFunc) {
                     }
                 }
                 const x = ele.scrollHeight;
-                /* inputElem.addEventListener('blur', revertToTitle); */
+                inputElem.addEventListener('blur', revertToTitle);
                 inputElem.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
@@ -137,28 +137,34 @@ function SingleAndDoubleClick(element, helperFunc) {
                 this.parentNode.replaceChild(inputElem, ele);
                 inputElem.focus();
 
-                inputElem.addEventListener('input', function() {
-                    this.style.height = 'auto';  // Reset the height
-                    this.style.height = this.scrollHeight + 'px';  // Set it to its scroll height
-                });
-
-                // Initial adjust if there's default text
-                inputElem.style.height = `${x-1}px`;
-
+                descriptionTextAreaDynamicHeight(inputElem);
             }
         });
     });
 }
+function descriptionTextAreaDynamicHeight(ele) {
+    let descTextareaEle = document.querySelector('.spell-lvl-slots .spell .description textarea');
+    if (!(ele === descTextareaEle)) {return;}
+    else {
+        descTextareaEle.addEventListener('input', function() {
+            this.style.height = 'auto';  // Reset the height
+            this.style.height = this.scrollHeight + 'px';  // Set it to its scroll height
+        });
+
+        // Initial adjust if there's default text
+        inputElem.style.height = `${x-1}px`;
+    }
+}
 // Event listener to handle hiding the description when clicking elsewhere
-/* document.addEventListener('click', function(e) { */
+document.addEventListener('click', function(e) {
     // If the clicked element is not a title and not a description, hide all descriptions
-    /* if (!e.target.classList.contains('title') && !e.target.classList.contains('description')) { */
-    /* if (!e.target.classList.contains('description')) {
+    // if (!e.target.classList.contains('title') && !e.target.classList.contains('description')) {
+    if (!e.target.classList.contains('description')) {
         document.querySelectorAll('.description').forEach(desc => desc.style.display = 'none');
     }
-}); */
-SingleAndDoubleClick('.spell-lvl-slots .spell .title', FirstClickShowDescriptionHelper);
-SingleAndDoubleClick('.spell-lvl-slots .spell .description span', blank);
+}); 
+SingleAndDoubleClick('.spell-lvl-slots .spell .title', FirstClickShowDescriptionHelper, 'input', 'ta-title');
+SingleAndDoubleClick('.spell-lvl-slots .spell .description span', blank, 'textarea', 'ta-description');
 
 
 function blank(thiS) {

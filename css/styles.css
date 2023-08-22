@@ -67,7 +67,6 @@ h1 {
 .spell .description {
     display: none;
     background: white;
-    /* font-size: 13px; */
     border-radius: 3px;
     box-sizing: border-box;
     position: absolute;
@@ -101,7 +100,7 @@ h1 {
     border-style: solid;
     border-color: #ffffff transparent transparent transparent;
 }
-.spell .title, .spell-lvl-heading {
+.spell .title, .spell-lvl-heading, .spell .ta-title {
     padding: 2px 20px;
     margin: 1px 0px;
     line-height: 1.875;
@@ -119,6 +118,14 @@ h1 {
     width: calc(100% - 20px);
     z-index: -1;
 }
+.spell .ta-title {
+    resize: none;
+    border: 0px;
+    width: 100%;
+    display: block;
+    outline: none;
+    overflow-y: hidden;
+}
 .spell-lvl-heading {
     display: flex;
     flex-direction: row;
@@ -135,7 +142,7 @@ h1 {
     letter-spacing: 0.25px;
     margin: 0px;
 }
-.spell .title:hover, .spell-lvl-heading:hover {
+.spell .title:hover, .spell-lvl-heading:hover, .spell .ta-title:hover {
     background: #1f1f1f34;
 }
 

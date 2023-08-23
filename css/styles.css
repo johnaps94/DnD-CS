@@ -75,6 +75,7 @@ h1 {
     transform: translateY(-34px); /* maybe needs to be calculated with js */
     margin-left: -11px;    
     color: black;
+    min-height: 34px;
 }
 .spell .description textarea, .spell .description span {
     padding: 7px 15px;

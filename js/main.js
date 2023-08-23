@@ -29,21 +29,30 @@ function transitionDelayOnSpells(delayIncrement) {
     });
 }
 
-
+let openedDescription = null;  // Maintain a reference to the currently opened description.
 class ClickHandler {
-    constructor(elementSelector, singleClickFunc, doubleClickElementType, cssClass, doubleClickHelperFunc) {
+    constructor(elementSelector, singleClickFunc, doubleClickElementType, cssClass, doubleClickHelperFunc, clickOutsideCallback) {
         this.elements = document.querySelectorAll(elementSelector);
         this.clickTimeout = null;
         this.singleClickFunc = singleClickFunc;
         this.doubleClickElementType = doubleClickElementType;
         this.cssClass = cssClass;
         this.doubleClickHelperFunc = doubleClickHelperFunc;
+        this.clickOutsideCallback = clickOutsideCallback;  // Initialize clickOutsideCallback
 
         this.elements.forEach(ele => {
             ele.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent the document click event from triggering when clicking on the title/description
                 this.handleClick(e, ele);
             });
+        });
+
+        // Add an event listener to the document to handle outside clicks
+        document.addEventListener('click', (e) => {
+            const isClickInside = Array.from(this.elements).some(ele => ele.contains(e.target));
+            if (!isClickInside && this.clickOutsideCallback) {
+                this.clickOutsideCallback();
+            }
         });
     }
 
@@ -90,14 +99,15 @@ class ClickHandler {
 }
 
 function toggleDescription(ele) {
-    // Close other descriptions first
-    document.querySelectorAll('.description').forEach(desc => {
-        if (desc !== ele.nextElementSibling) {
-            desc.style.display = 'none';
-        }
-    });
     const description = ele.nextElementSibling;
+    // Close the previously opened description
+    if (openedDescription && openedDescription !== description) {
+        openedDescription.style.display = 'none';
+    }
+
     description.style.display = (description.style.display === 'inline-block') ? 'none' : 'inline-block';
+    // Update the openedDescription reference
+    openedDescription = (description.style.display === 'inline-block') ? description : null;
 }
 
 function adjustTextareaHeight(textarea) {
@@ -108,14 +118,14 @@ function adjustTextareaHeight(textarea) {
     textarea.style.height = textarea.scrollHeight + 'px'; // This line ensures it adjusts on creation too
 }
 
-new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'ta-title');
-new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'ta-description', adjustTextareaHeight);
-
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.title') && !e.target.closest('.description')) {
-        document.querySelectorAll('.description').forEach(desc => desc.style.display = 'none');
+new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'ta-title', null, () => {
+    if (openedDescription) {
+        openedDescription.style.display = 'none';
+        openedDescription = null;
     }
 });
+new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'ta-description', adjustTextareaHeight);
+
 
 
 

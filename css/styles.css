@@ -101,7 +101,7 @@ h1 {
     border-style: solid;
     border-color: #ffffff transparent transparent transparent;
 }
-.spell .title, .spell-lvl-heading, .spell .ta-title {
+.spell .title, .spell-lvl-heading, .spell .spell-edit-title {
     padding: 2px 20px;
     margin: 1px 0px;
     line-height: 1.875;
@@ -119,7 +119,7 @@ h1 {
     width: calc(100% - 20px);
     z-index: -1;
 }
-.spell .ta-title {
+.spell .spell-edit-title {
     resize: none;
     border: 0px;
     width: 100%;
@@ -143,7 +143,18 @@ h1 {
     letter-spacing: 0.25px;
     margin: 0px;
 }
-.spell .title:hover, .spell-lvl-heading:hover, .spell .ta-title:hover {
+.spell-lvl-heading h2 input {
+    outline: none;
+    border: 0px;
+    color: rgba(255, 255, 255, 0.897);
+    font-size: 18px;
+    width: 53px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    background-color: transparent;
+    
+}
+.spell .title:hover, .spell-lvl-heading:hover, .spell .spell-edit-title:hover {
     background: #1f1f1f34;
 }
 

@@ -15,6 +15,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /* 
      *
+     *   User Profile
+     *
+     */
+    const userProfile = {
+        'name': characherName,
+        'health': currentHealth,
+        'skills': skillsObj,
+        'spells': spellsObj
+    }
+    class Spell {
+        constructor() {
+            this.spellName = this.querySelector(); 
+        }
+    }
+
+
+    /* 
+     *
      *   SPELLBOOK FUNCTIONS
      *
      */
@@ -71,18 +89,18 @@ document.addEventListener("DOMContentLoaded", function() {
             inputElem.classList.add(this.cssClass);
             inputElem.value = inputValue || 'Add your text...';
 
-            const revertToTitle = () => {
+            const revertToOriginal = () => {
                 ele.innerText = inputElem.value || 'Add your text...';;
                 if (inputElem.parentNode) {
                     inputElem.parentNode.replaceChild(ele, inputElem);
                 }
             }
 
-            inputElem.addEventListener('blur', revertToTitle);
+            inputElem.addEventListener('blur', revertToOriginal);
             inputElem.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    revertToTitle();
+                    revertToOriginal();
                 }
             });
 

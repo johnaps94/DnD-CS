@@ -77,13 +77,13 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 clearTimeout(this.clickTimeout);
                 this.clickTimeout = null;
-                this.handleDoubleClick(ele);
+                this.handleDoubleClick(e, ele);
             }
         }
 
-        handleDoubleClick(ele) {
+        handleDoubleClick(e, ele) {
             if (this.clickOutsideCallback) {
-                this.clickOutsideCallback();// check this in the ai conv
+                this.clickOutsideCallback(e);
             } 
             const inputValue = ele.innerText.trim();
             const inputElem = document.createElement(this.doubleClickElementType);
@@ -91,18 +91,25 @@ document.addEventListener("DOMContentLoaded", function() {
             inputElem.classList.add(this.cssClass);
             inputElem.value = inputValue || 'Add your text...';
 
-            const revertToOriginal = () => {
-                ele.innerText = inputElem.value || 'Add your text...';;
-                if (inputElem.parentNode) {
-                    inputElem.parentNode.replaceChild(ele, inputElem);
+            let allowRevertToOriginal = true;
+
+            const revertToOriginal = (eventType) => {
+                if (allowRevertToOriginal || eventType == 'keydown') { // we are making this check because on keydown this func was called twice cause of blur event listener and caused a js error
+                    ele.innerText = inputElem.value || 'Add your text...';;
+                    if (inputElem.parentNode) {
+                        inputElem.parentNode.replaceChild(ele, inputElem);
+                    }
                 }
             }
 
-            inputElem.addEventListener('blur', revertToOriginal);
+            inputElem.addEventListener('blur', () => {
+                revertToOriginal('blur');
+            });
             inputElem.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    revertToOriginal();
+                    allowRevertToOriginal = false;
+                    revertToOriginal('keydown');   
                 }
             });
 
@@ -120,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
-    new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
+    new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
 
     function spellLevelInputWidthAdjust(inputElem) {
         console.log("Function called!");

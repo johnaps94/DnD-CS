@@ -41,6 +41,19 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let openedDescription = null;  // Maintain a reference to the currently opened description.
 
+    // Centralized registry of elements to check clicks against
+    const activeElements = new Set();
+
+    // Standalone handler for document-level clicks
+    document.addEventListener('click', (e) => {
+        activeElements.forEach((elementData) => {
+            const isClickInside = elementData.element.contains(e.target);
+            if (!isClickInside && elementData.callback) {
+                elementData.callback(e);
+            }
+        });
+    });
+
     class ClickHandler {
         constructor(elementSelector, singleClickFunc, doubleClickElementType, cssClass, doubleClickHelperFunc, clickOutsideCallback) {
             this.elements = document.querySelectorAll(elementSelector);
@@ -58,13 +71,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             });
 
+            // When an instance is created, register its element with the centralized handler
+            const elementsArray = Array.from(document.querySelectorAll(elementSelector));
+            elementsArray.forEach(ele => {
+                activeElements.add({
+                    element: ele,
+                    callback: clickOutsideCallback
+                });
+            });
+            
             // Add an event listener to the document to handle outside clicks
             // maybe make a logical check to check if the following will be run
-            document.addEventListener('click', (e) => {
+            /* document.addEventListener('click', (e) => {
                 const isClickInside = Array.from(this.elements).some(ele => ele.contains(e.target));
                 if (!isClickInside && this.clickOutsideCallback) {
                     this.clickOutsideCallback(e);
                 }
+            }); */
+        }
+
+        cleanup() {
+            const elementsArray = Array.from(document.querySelectorAll(this.elementSelector));
+            elementsArray.forEach(ele => {
+                activeElements.forEach(activeElementData => {
+                    if (activeElementData.element === ele) {
+                        activeElements.delete(activeElementData);
+                    }
+                });
             });
         }
 
@@ -82,9 +115,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         handleDoubleClick(e, ele) {
+            // Manually call clickOutsideCallback
+            e.stopPropagation();
             if (this.clickOutsideCallback) {
                 this.clickOutsideCallback(e);
-            } 
+            }
+
             const inputValue = ele.innerText.trim();
             const inputElem = document.createElement(this.doubleClickElementType);
 
@@ -119,21 +155,26 @@ document.addEventListener("DOMContentLoaded", function() {
             this.doubleClickHelperFunc && this.doubleClickHelperFunc(inputElem);
         }
     }
-    new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'spell-edit-title', null, (e) => {
+    const clickHandlerInstanceSpellTitle = new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'spell-edit-title', null, (e) => {
         // Check if the event target is not inside the openedDescription
         if (openedDescription && !openedDescription.contains(e.target)) {
             openedDescription.style.display = 'none';
             openedDescription = null;
         }
     });
-    new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
-    new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
+    const clickHandlerInstanceSpellDescription = new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
+    const clickHandlerInstanceSpellHeadingLevel = new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
+    // Later, when you're done with the instance:
+    clickHandlerInstanceSpellTitle.cleanup();
+    clickHandlerInstanceSpellDescription.cleanup();
+    clickHandlerInstanceSpellHeadingLevel.cleanup();
+
 
     function spellLevelInputWidthAdjust(inputElem) {
-        console.log("Function called!");
-        console.log(inputElem);
         const adjustWidth = () => {
-            inputElem.style.width = `${inputElem.scrollWidth}px`;
+            inputElem.style.width = `${inputElem.scrollWidth - 6.5}px`;
+            inputElem.style.marginLeft = '-1px';
+            inputElem.style.marginRight = '-1px';
         };
     
         // Adjust width when the function is called

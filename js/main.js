@@ -65,20 +65,50 @@ document.addEventListener("DOMContentLoaded", function() {
             this.clickOutsideCallback = clickOutsideCallback;
 
             this.elements.forEach(ele => {
-                ele.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent the document click event from triggering when clicking on the title/description
+                /* ele.addEventListener('click', (e) => {
+                    // e.stopPropagation(); // Prevent the document click event from triggering when clicking on the title/description
                     this.handleClick(e, ele);
-                });
+                }); */
+
+                // Bind the handleClick function to the current instance of ClickHandler
+                const boundHandleClick = this.handleClick.bind(this);
+
+                // Define the click event handler function
+                const clickHandlerFunction = (e) => {
+                    boundHandleClick(e, ele);
+                };
+
+                // When an instance is created, register its element with the centralized handler
+                const activeElem = {
+                    element: ele,
+                    eleClickEvent: () => {
+                        ele.addEventListener('click', clickHandlerFunction);
+                    },
+                    eleDeregisterClickEvent: () => {
+                        ele.removeEventListener('click', clickHandlerFunction);
+                    },
+                    /* documentClickEvent: () => {
+
+                    }, */
+                    callback: clickOutsideCallback
+                };
+                // Add the object to the activeElements Set
+                activeElements.add(activeElem);
+
+                // Immediately call the eleClickEvent method for the object
+                activeElem.eleClickEvent();
             });
 
+            
+
             // When an instance is created, register its element with the centralized handler
-            const elementsArray = Array.from(document.querySelectorAll(elementSelector));
+            /* const elementsArray = Array.from(document.querySelectorAll(elementSelector));
             elementsArray.forEach(ele => {
                 activeElements.add({
                     element: ele,
                     callback: clickOutsideCallback
                 });
-            });
+            }); */
             
             // Add an event listener to the document to handle outside clicks
             // maybe make a logical check to check if the following will be run
@@ -96,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 activeElements.forEach(activeElementData => {
                     if (activeElementData.element === ele) {
                         activeElements.delete(activeElementData);
+                        activeElementData.eleClickEvent
                     }
                 });
             });

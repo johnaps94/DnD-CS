@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    //class for elements that we want left click = open description, double left click = edit, right click copy element
     class ClickHandler {
         constructor(elementSelector, singleClickFunc, doubleClickElementType, cssClass, doubleClickHelperFunc, clickOutsideCallback) {
             this.elementSelector = elementSelector;
@@ -94,26 +95,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Immediately call the eleClickEvent method for the object
                 activeElem.eleClickEvent();
             });
-
-            
-
-            // When an instance is created, register its element with the centralized handler
-            /* const elementsArray = Array.from(document.querySelectorAll(elementSelector));
-            elementsArray.forEach(ele => {
-                activeElements.add({
-                    element: ele,
-                    callback: clickOutsideCallback
-                });
-            }); */
-            
-            // Add an event listener to the document to handle outside clicks
-            // maybe make a logical check to check if the following will be run
-            /* document.addEventListener('click', (e) => {
-                const isClickInside = Array.from(this.elements).some(ele => ele.contains(e.target));
-                if (!isClickInside && this.clickOutsideCallback) {
-                    this.clickOutsideCallback(e);
-                }
-            }); */
         }
 
         cleanup() {
@@ -182,6 +163,8 @@ document.addEventListener("DOMContentLoaded", function() {
             this.doubleClickHelperFunc && this.doubleClickHelperFunc(inputElem);
         }
     }
+
+    //initiate class on the elements that we need it
     const clickHandlerInstanceSpellTitle = new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'spell-edit-title', null, (e) => {
         // Check if the event target is not inside the openedDescription
         if (openedDescription && !openedDescription.contains(e.target)) {
@@ -191,11 +174,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     const clickHandlerInstanceSpellDescription = new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
     const clickHandlerInstanceSpellHeadingLevel = new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
+    
     // Later, when you're done with the instance:
    /*  clickHandlerInstanceSpellTitle.cleanup();
     clickHandlerInstanceSpellDescription.cleanup();
     clickHandlerInstanceSpellHeadingLevel.cleanup(); */
-
 
     function spellLevelInputWidthAdjust(inputElem) {
         const adjustWidth = () => {
@@ -210,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Adjust width on input changes
         inputElem.addEventListener('input', adjustWidth);
     }
+
     function toggleDescription(ele) {
         const description = ele.nextElementSibling;
         // Close the previously opened description
@@ -221,6 +205,4 @@ document.addEventListener("DOMContentLoaded", function() {
         // Update the openedDescription reference
         openedDescription = (description.style.display === 'inline-block') ? description : null;
     }
-
-
 });

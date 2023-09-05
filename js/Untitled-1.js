@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
+
+    //function that will stay in main.js and be called in spellbook.js
+    function toggleActiveClass(toggleElement, activeElement) {
+        const toggles = document.querySelectorAll(toggleElement);
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.closest(activeElement).classList.toggle('active');
+            });
+        });
+    }
+    toggleActiveClass('.spell-lvl-heading', '.spell-lvl-slots');
     
     let openedDescription = null;  // Maintain a reference to the currently opened description.
 
@@ -15,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    //class for elements that we want left click = open description, double left click = edit, right click copy element
     class ClickHandler {
         constructor(elementSelector, singleClickFunc, doubleClickElementType, cssClass, doubleClickHelperFunc, clickOutsideCallback) {
             this.elementSelector = elementSelector;
@@ -27,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
             this.clickOutsideCallback = clickOutsideCallback;
 
             this.elements.forEach(ele => {
-
                 // Bind the handleClick function to the current instance of ClickHandler
                 const boundHandleClick = this.handleClick.bind(this);
 
@@ -56,11 +67,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Immediately call the eleClickEvent method for the object
                 activeElem.eleClickEvent();
             });
-
         }
 
         cleanup() {
-            const elementsArray = Array.from(document.querySelectorAll(this.elementSelector));
+            const elementsArray = document.querySelectorAll(this.elementSelector);
             elementsArray.forEach(ele => {
                 activeElements.forEach(activeElementData => {
                     if (activeElementData.element === ele) {
@@ -125,6 +135,8 @@ document.addEventListener("DOMContentLoaded", function() {
             this.doubleClickHelperFunc && this.doubleClickHelperFunc(inputElem);
         }
     }
+
+    //initiate class on the elements that we need it
     const clickHandlerInstanceSpellTitle = new ClickHandler('.spell-lvl-slots .spell .title', toggleDescription, 'input', 'spell-edit-title', null, (e) => {
         // Check if the event target is not inside the openedDescription
         if (openedDescription && !openedDescription.contains(e.target)) {
@@ -134,11 +146,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     const clickHandlerInstanceSpellDescription = new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
     const clickHandlerInstanceSpellHeadingLevel = new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
-    // Later, when you're done with the instance:
-    clickHandlerInstanceSpellTitle.cleanup();
-    clickHandlerInstanceSpellDescription.cleanup();
-    clickHandlerInstanceSpellHeadingLevel.cleanup();
-
 
     function spellLevelInputWidthAdjust(inputElem) {
         const adjustWidth = () => {
@@ -153,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Adjust width on input changes
         inputElem.addEventListener('input', adjustWidth);
     }
+
     function toggleDescription(ele) {
         const description = ele.nextElementSibling;
         // Close the previously opened description
@@ -164,6 +172,4 @@ document.addEventListener("DOMContentLoaded", function() {
         // Update the openedDescription reference
         openedDescription = (description.style.display === 'inline-block') ? description : null;
     }
-
-
 });

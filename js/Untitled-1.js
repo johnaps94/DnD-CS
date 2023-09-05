@@ -1,43 +1,4 @@
-import { adjustTextareaHeight, transitionDelayOnSpells } from '/js/spellbook.js';
-
 document.addEventListener("DOMContentLoaded", function() {
-
-    //function that will stay in main.js and be called in spellbook.js
-    //incorporate this inside the clickhandler class as the first click action of heading element
-    function toggleActiveClass(toggleElement, activeElement) {
-        const toggles = document.querySelectorAll(toggleElement);
-        toggles.forEach(toggle => {
-            toggle.addEventListener('click', function() {
-                this.closest(activeElement).classList.toggle('active');
-            });
-        });
-    }
-    toggleActiveClass('.spell-lvl-heading', '.spell-lvl-slots');
-
-    /* 
-     *
-     *   User Profile
-     *
-     */
-    /* const userProfile = {
-        'name': characherName,
-        'health': currentHealth,
-        'skills': skillsObj,
-        'spells': spellsObj
-    }
-    class Spell {
-        constructor() {
-            this.spellName = this.querySelector(); 
-        }
-    } */
-
-
-    /* 
-     *
-     *   SPELLBOOK FUNCTIONS
-     *
-     */
-    transitionDelayOnSpells(0.065);
     
     let openedDescription = null;  // Maintain a reference to the currently opened description.
 
@@ -66,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.clickOutsideCallback = clickOutsideCallback;
 
             this.elements.forEach(ele => {
+
                 // Bind the handleClick function to the current instance of ClickHandler
                 const boundHandleClick = this.handleClick.bind(this);
 
@@ -95,29 +57,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 activeElem.eleClickEvent();
             });
 
-            
-
-            // When an instance is created, register its element with the centralized handler
-            /* const elementsArray = Array.from(document.querySelectorAll(elementSelector));
-            elementsArray.forEach(ele => {
-                activeElements.add({
-                    element: ele,
-                    callback: clickOutsideCallback
-                });
-            }); */
-            
-            // Add an event listener to the document to handle outside clicks
-            // maybe make a logical check to check if the following will be run
-            /* document.addEventListener('click', (e) => {
-                const isClickInside = Array.from(this.elements).some(ele => ele.contains(e.target));
-                if (!isClickInside && this.clickOutsideCallback) {
-                    this.clickOutsideCallback(e);
-                }
-            }); */
         }
 
         cleanup() {
-            const elementsArray = document.querySelectorAll(this.elementSelector);
+            const elementsArray = Array.from(document.querySelectorAll(this.elementSelector));
             elementsArray.forEach(ele => {
                 activeElements.forEach(activeElementData => {
                     if (activeElementData.element === ele) {
@@ -192,9 +135,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const clickHandlerInstanceSpellDescription = new ClickHandler('.spell-lvl-slots .spell .description span', null, 'textarea', 'spell-edit-description', adjustTextareaHeight);
     const clickHandlerInstanceSpellHeadingLevel = new ClickHandler('.spell-lvl-slots .spell-lvl-heading h2 span.level', null, 'input', 'spell-edit-heading', spellLevelInputWidthAdjust, null);
     // Later, when you're done with the instance:
-   /*  clickHandlerInstanceSpellTitle.cleanup();
+    clickHandlerInstanceSpellTitle.cleanup();
     clickHandlerInstanceSpellDescription.cleanup();
-    clickHandlerInstanceSpellHeadingLevel.cleanup(); */
+    clickHandlerInstanceSpellHeadingLevel.cleanup();
 
 
     function spellLevelInputWidthAdjust(inputElem) {

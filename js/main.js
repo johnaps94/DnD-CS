@@ -16,24 +16,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /* 
      *
-     *   User Profile
-     *
-     */
-    /* const userProfile = {
-        'name': characherName,
-        'health': currentHealth,
-        'skills': skillsObj,
-        'spells': spellsObj
-    }
-    class Spell {
-        constructor() {
-            this.spellName = this.querySelector(); 
-        }
-    } */
-
-
-    /* 
-     *
      *   SPELLBOOK FUNCTIONS
      *
      */

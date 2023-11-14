@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 return 15 * (99 - clipStart) / 49;
             }
         }
-        adjustClipBasedOnDamage(50); //test call, delete after u create damage function
+        adjustClipBasedOnDamage(30); //test call, delete after u create damage function
     /* 
      *
      *   END OF - ADJUST HEALTH FILL CLIPPING
